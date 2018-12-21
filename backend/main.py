@@ -10,7 +10,7 @@ motors = motion.Motors()
 
 
 @app.route('/', methods=['GET'])
-def get_status():
+def index():
     return app.send_static_file('index.html')
 
 
