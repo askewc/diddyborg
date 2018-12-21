@@ -9,12 +9,12 @@ sensors = distance.Sensors()
 motors = motion.Motors()
 
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def get_status():
     return app.send_static_file('index.html')
 
 
-@app.route('/api')
+@app.route('/api', methods=['GET'])
 def get_status():
     return jsonify({'status': motors.get_status()})
 
