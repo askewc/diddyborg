@@ -1,6 +1,6 @@
 import time
 
-from server.lib import UltraBorg
+from backend.lib import UltraBorg
 
 
 class Sensors:

@@ -1,4 +1,4 @@
-from server.lib import ThunderBorg
+from backend.lib import ThunderBorg
 
 LEFT = 'LEFT'
 RIGHT = 'RIGHT'

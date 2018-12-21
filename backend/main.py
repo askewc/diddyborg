@@ -1,9 +1,8 @@
 from flask import Flask, jsonify
 
-from server import distance
-from server import motion
+from backend import distance, motion
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='', static_folder='../frontend')
 
 sensors = distance.Sensors()
 motors = motion.Motors()
@@ -11,40 +10,45 @@ motors = motion.Motors()
 
 @app.route('/')
 def get_status():
+    return app.send_static_file('index.html')
+
+
+@app.route('/api/')
+def get_status():
     return jsonify({'status': motors.get_status()})
 
 
-@app.route('/distances', methods=['GET'])
+@app.route('/api/distances', methods=['GET'])
 def get_distances():
     distances = sensors.read()
     return jsonify({'distances': distances})
 
 
-@app.route('/go/forward/<float:speed>', methods=['GET'])
+@app.route('/api/go/forward/<float:speed>', methods=['GET'])
 def go_forward(speed):
     motors.go(speed)
     return get_status()
 
 
-@app.route('/go/backward/<float:speed>', methods=['GET'])
+@app.route('/api/go/backward/<float:speed>', methods=['GET'])
 def go_backward(speed):
     motors.go(-speed)
     return get_status()
 
 
-@app.route('/turn/left/<float:speed>', methods=['GET'])
+@app.route('/api/turn/left/<float:speed>', methods=['GET'])
 def turn_left(speed):
     motors.turn(speed)
     return get_status()
 
 
-@app.route('/turn/right/<float:speed>', methods=['GET'])
+@app.route('/api/turn/right/<float:speed>', methods=['GET'])
 def turn_right(speed):
     motors.turn(-speed)
     return get_status()
 
 
-@app.route('/stop', methods=['GET'])
+@app.route('/api/stop', methods=['GET'])
 def stop():
     motors.stop()
     return get_status()
