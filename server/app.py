@@ -4,6 +4,7 @@ from server import distance
 from server import motion
 
 app = Flask(__name__)
+
 sensors = distance.Sensors()
 motors = motion.Motors()
 
