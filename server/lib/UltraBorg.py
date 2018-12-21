@@ -28,9 +28,10 @@ See the website at www.piborg.org/ultraborg for more details
 
 # Import the libraries we need
 import io
-import fcntl
-import types
 import time
+import types
+
+import fcntl
 
 # Constant values
 I2C_SLAVE                   = 0x0703
@@ -105,7 +106,8 @@ Scans the I²C bus for a UltraBorg boards and returns a list of all usable addres
 The busNumber if supplied is which I²C bus to scan, 0 for Rev 1 boards, 1 for Rev 2 boards, if not supplied the default is 1
     """
     found = []
-    print 'Scanning I²C bus #%d' % (busNumber)
+    print
+    'Scanning I²C bus #%d' % (busNumber)
     bus = UltraBorg()
     for address in range(0x03, 0x78, 1):
         try:
@@ -142,19 +144,23 @@ The busNumber if supplied is which I²C bus to scan, 0 for Rev 1 boards, 1 for Re
 Warning, this new I²C address will still be used after resetting the power on the device
     """
     if newAddress < 0x03:
-        print 'Error, I²C addresses below 3 (0x03) are reserved, use an address between 3 (0x03) and 119 (0x77)'
+        print
+        'Error, I²C addresses below 3 (0x03) are reserved, use an address between 3 (0x03) and 119 (0x77)'
         return
     elif newAddress > 0x77:
-        print 'Error, I²C addresses above 119 (0x77) are reserved, use an address between 3 (0x03) and 119 (0x77)'
+        print
+        'Error, I²C addresses above 119 (0x77) are reserved, use an address between 3 (0x03) and 119 (0x77)'
         return
     if oldAddress < 0x0:
         found = ScanForUltraBorg(busNumber)
         if len(found) < 1:
-            print 'No UltraBorg boards found, cannot set a new I²C address!'
+            print
+            'No UltraBorg boards found, cannot set a new I²C address!'
             return
         else:
             oldAddress = found[0]
-    print 'Changing I²C address from %02X to %02X (bus #%d)' % (oldAddress, newAddress, busNumber)
+    print
+    'Changing I²C address from %02X to %02X (bus #%d)' % (oldAddress, newAddress, busNumber)
     bus = UltraBorg()
     bus.InitBusOnly(busNumber, oldAddress)
     try:
@@ -197,9 +203,11 @@ Warning, this new I²C address will still be used after resetting the power on th
             foundChip = False
             print 'Missing UltraBorg at %02X' % (newAddress)
     if foundChip:
-        print 'New I²C address of %02X set successfully' % (newAddress)
+        print
+        'New I²C address of %02X set successfully' % (newAddress)
     else:
-        print 'Failed to set new I²C address...'
+        print
+        'Failed to set new I²C address...'
 
 
 # Class used to control UltraBorg
@@ -216,7 +224,7 @@ printFunction           Function reference to call when printing text, if None "
 
     # Shared values used by this class
     busNumber               = 1                 # Check here for Rev 1 vs Rev 2 and select the correct bus
-    i2cAddress              = I2C_ID_SERVO_USM  # I²C address, override for a different address
+    i2cAddress = I2C_ID_SERVO_USM  # I²C address, override for a different address
     foundChip               = False
     printFunction           = None
     i2cWrite                = None

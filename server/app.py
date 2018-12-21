@@ -1,9 +1,7 @@
-import time
+from flask import Flask, jsonify
 
-from flask import Flask, jsonify, request
-
-import distance
-import motion
+from server import distance
+from server import motion
 
 app = Flask(__name__)
 sensors = distance.Sensors()

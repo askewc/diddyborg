@@ -1,4 +1,4 @@
-import ThunderBorg
+from server.lib import ThunderBorg
 
 LEFT = 'LEFT'
 RIGHT = 'RIGHT'
@@ -7,9 +7,10 @@ BATTERY_MAX_VOLTAGE = 4.2 * 4
 
 
 def get_motor_name_error(function_name, motor_name):
-	line_1 = 'Couldn\'t run ' + function_name + '.'
+	assert isinstance(function_name, str)
+	line_1 = 'Could not run {0}.'.format(function_name)
 	line_2 = motor_name + ' is not a valid motor name!'
-	line_3 = 'It must be either \'' + LEFT + '\' or \'' + RIGHT + '\'.'
+	line_3 = 'It must be either \'{0}\' or \'{1}\'.'.format(LEFT, RIGHT)
 	return line_1 + ' ' + line_2 + ' ' + line_3
 
 
@@ -22,7 +23,7 @@ def normalize_speed(speed):
 	return 0 if speed == 0.0 else speed
 
 
-class Motors():
+class Motors:
 	def __init__(self):
 		self.thunder_borg = ThunderBorg.ThunderBorg()
 		self.thunder_borg.Init()
@@ -54,7 +55,7 @@ class Motors():
 			self.thunder_borg.SetMotor2(clamped_speed)
 		else:
 			self.stop()
-			raise get_motor_name_error('set_speed(' + str(motor_name) + ', ' + str(speed) + ')', motor_name)
+			raise get_motor_name_error('set_speed({0}, {1})'.format(str(motor_name), str(speed)), motor_name)
 
 	def stop(self):
 		self.thunder_borg.MotorsOff()
@@ -66,5 +67,3 @@ class Motors():
 	def turn(self, speed):
 		self.set_speed(LEFT, -speed)
 		self.set_speed(RIGHT, speed)
-
-		

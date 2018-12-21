@@ -1,9 +1,9 @@
 import time
 
-import UltraBorg
+from server.lib import UltraBorg
 
 
-class Sensors():
+class Sensors:
 	def __init__(self):
 		self.ultra_borg = UltraBorg.UltraBorg()
 		self.ultra_borg.Init()
