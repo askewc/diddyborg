@@ -14,7 +14,7 @@ def get_status():
     return app.send_static_file('index.html')
 
 
-@app.route('/api/')
+@app.route('/api')
 def get_status():
     return jsonify({'status': motors.get_status()})
 
