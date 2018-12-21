@@ -1,6 +1,7 @@
 from flask import Flask, jsonify
 
-from backend import distance, motion
+import distance
+import motion
 
 app = Flask(__name__, static_url_path='', static_folder='../frontend')
 
