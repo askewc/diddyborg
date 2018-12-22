@@ -63,16 +63,18 @@ class ImageCaptureThread(Thread):
 
 
 class WebCam:
-    def __init__(self, resolution=(240 * 3, 192 * 3), frame_rate=30):
+    def __init__(self, resolution=(240, 192), frame_rate=30):
         self.resolution = resolution
 
         self.pi_camera = PiCamera()
         self.pi_camera.resolution = resolution
         self.pi_camera.framerate = frame_rate
 
-        self.streaming_thread = ImageStreamingThread(self.pi_camera)
+        print('got pi cam')
+
+        # self.streaming_thread = ImageStreamingThread(self.pi_camera)
         time.sleep(2)
-        self.capture_thread = ImageCaptureThread(self.pi_camera, self.streaming_thread)
+        # self.capture_thread = ImageCaptureThread(self.pi_camera, self.streaming_thread)
 
     @property
     def image(self):
