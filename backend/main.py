@@ -1,17 +1,24 @@
 from flask import Flask, jsonify
 
 import distance
+import image_capture
 import motion
 
 app = Flask(__name__, static_url_path='', static_folder='../frontend')
 
 sensors = distance.Sensors()
 motors = motion.Motors()
+web_cam = image_capture.WebCam()
 
 
 @app.route('/', methods=['GET'])
 def index():
     return app.send_static_file('index.html')
+
+
+@app.route('/cam.jpg', methods=['GET'])
+def get_web_cam_image():
+    return web_cam.image.tostring()
 
 
 @app.route('/api', methods=['GET'])
