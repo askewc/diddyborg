@@ -33,7 +33,7 @@ def get_distances():
     return jsonify({'distances': distances})
 
 
-@app.route('/api/move', methods=['GET'])
+@app.route('/api/move', methods=['POST'])
 def move():
     axes = request.get_json()
     motors.set_speed(motion.LEFT, axes[motion.LEFT])
