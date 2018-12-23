@@ -12,11 +12,13 @@ let previousRight = 0;
 function moveRobot() {
     if (connected) {
         const gamepad = navigator.getGamepads()[0];
-        const left = Math.round(100 * gamepad.axes[1]) / 100;
-        const right = Math.round(100 * gamepad.axes[3]) / 100;
+        const left = Math.round(10 * gamepad.axes[1]) / 10;
+        const right = Math.round(10 * gamepad.axes[3]) / 10;
 
         if (previousLeft !== left || previousRight !== right) {
-            console.log(left, gamepad.axes[1], right, gamepad.axes[3]);
+            console.log(left, right);
+            previousLeft = left;
+            previousRight = right;
         }
     }
 
