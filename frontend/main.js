@@ -6,12 +6,18 @@ function updateWebCamImage() {
     requestAnimationFrame(updateWebCamImage);
 }
 
+let previousLeft = 0;
+let previousRight = 0;
+
 function moveRobot() {
     if (connected) {
         const gamepad = navigator.getGamepads()[0];
         const left = Math.round(100 * gamepad.axes[1]) / 100;
         const right = Math.round(100 * gamepad.axes[3]) / 100;
-        console.log(left, gamepad.axes[1], right, gamepad.axes[3]);
+
+        if (previousLeft !== left || previousRight !== right) {
+            console.log(left, gamepad.axes[1], right, gamepad.axes[3]);
+        }
     }
 
     requestAnimationFrame(moveRobot);
