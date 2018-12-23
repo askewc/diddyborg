@@ -3,6 +3,8 @@ let axes = undefined;
 let lastUpdate = Date.now();
 
 function update() {
+    webCamImage.src = 'cam.jpg?cache_buster=' + Date.now()
+
     if (Date.now() - lastUpdate >= 1000 / 24) {
         lastUpdate = Date.now();
         if (axes) {
@@ -13,13 +15,13 @@ function update() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(axes),
-            }).then(() => webCamImage.src = 'cam.jpg?cache_buster=' + Date.now());
+            }).then(() => requestAnimationFrame(update));
         } else {
-            fetch('api/stop');
+            requestAnimationFrame(update);
         }
     }
 
-    requestAnimationFrame(update);
+
 }
 
 window.addEventListener('gamepadconnected', (e) => {
@@ -35,8 +37,9 @@ window.addEventListener('gamepadconnected', (e) => {
 
 window.addEventListener('gamepaddisconnected', (e) => {
     console.log('Gamepad disconnected!');
-
     axes = undefined;
+    fetch('api/stop');
+
 });
 
 update();
