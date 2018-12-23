@@ -2,26 +2,10 @@ const webCamImage = document.getElementById('web-cam');
 let axes = undefined;
 
 function update() {
-    if (axes) {
-        webCamImage.onload = undefined;
-
-        fetch('api/move', {
-            method: 'POST',
-            cache: 'no-cache',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(axes),
-        }).then(() => {
-            webCamImage.onload = update;
-            requestAnimationFrame(() => {
-                setTimeout(() => {
-                    webCamImage.src = 'cam.jpg?cache_buster=' + Date.now()
-                }, 1000 / 24);
-            });
-        });
-    }
+    webCamImage.src = 'cam.jpg?cache_buster=' + Date.now();
 }
+
+webCamImage.onload = update;
 
 window.addEventListener('gamepadconnected', (e) => {
     console.log('Gamepad connected!');
@@ -36,10 +20,6 @@ window.addEventListener('gamepadconnected', (e) => {
 
 
 window.addEventListener('gamepaddisconnected', (e) => {
-    if (axes) fetch('api/stop');
-
     console.log('Gamepad disconnected!');
     axes = undefined;
 });
-
-update();
