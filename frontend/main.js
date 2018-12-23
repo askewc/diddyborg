@@ -45,6 +45,7 @@ function getStatus() {
             const distances = response.json();
             const distancesElement = document.getElementById('distances');
             distancesElement.innerText = distances.toString();
+            console.log(distances);
             setTimeout(getStatus, 1000);
         });
     });
