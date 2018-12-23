@@ -12,10 +12,7 @@ function update() {
             body: JSON.stringify(axes),
         }).then(() => {
             webCamImage.src = 'cam.jpg?cache_buster=' + Date.now();
-            requestAnimationFrame(update);
         });
-    } else {
-        requestAnimationFrame(update);
     }
 }
 
@@ -29,6 +26,8 @@ window.addEventListener('gamepadconnected', (e) => {
         right: gamepad.axes[3],
     };
 });
+
+webCamImage.onload = update();
 
 window.addEventListener('gamepaddisconnected', (e) => {
     console.log('Gamepad disconnected!');
