@@ -2,8 +2,6 @@ const webCamImage = document.getElementById('web-cam');
 let axes = undefined;
 
 function update() {
-    webCamImage.src = 'cam.jpg?cache_buster=' + Date.now();
-
     if (axes) {
         fetch('api/move', {
             method: 'POST',
@@ -12,7 +10,10 @@ function update() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(axes),
-        }).then(() => requestAnimationFrame(update));
+        }).then(() => {
+            webCamImage.src = 'cam.jpg?cache_buster=' + Date.now();
+            requestAnimationFrame(update);
+        });
     } else {
         requestAnimationFrame(update);
     }
