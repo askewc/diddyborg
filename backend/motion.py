@@ -1,7 +1,7 @@
 from lib import ThunderBorg
 
-LEFT = 'LEFT'
-RIGHT = 'RIGHT'
+LEFT = 'left'
+RIGHT = 'right'
 BATTERY_MIN_VOLTAGE = 3.7 * 4
 BATTERY_MAX_VOLTAGE = 4.2 * 4
 

@@ -28,8 +28,8 @@ window.addEventListener('gamepadconnected', (e) => {
     const gamepad = navigator.getGamepads()[0];
 
     axes = {
-        LEFT: gamepad.axes[1],
-        RIGHT: gamepad.axes[3],
+        left: gamepad.axes[1],
+        right: gamepad.axes[3],
     };
 });
 
