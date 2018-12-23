@@ -1,9 +1,9 @@
 import time
 from threading import Event, Lock, Thread
-import prctl
 
 import cv2
 import numpy
+import prctl
 from picamera import PiCamera
 from picamera.array import PiRGBArray
 
@@ -72,7 +72,7 @@ class ImageCaptureThread(Daemon):
 
 
 class WebCam:
-    def __init__(self, resolution=(240, 192), frame_rate=30):
+    def __init__(self, resolution=(1920, 1080), frame_rate=30):
         self.resolution = resolution
 
         self.pi_camera = PiCamera()
