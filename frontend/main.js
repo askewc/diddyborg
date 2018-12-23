@@ -3,6 +3,9 @@ let axes = undefined;
 
 function update() {
     if (axes) {
+        webCamImage.onload = () => {
+        };
+
         fetch('api/move', {
             method: 'POST',
             cache: 'no-cache',
@@ -11,6 +14,7 @@ function update() {
             },
             body: JSON.stringify(axes),
         }).then(() => {
+            webCamImage.onload = update;
             webCamImage.src = 'cam.jpg?cache_buster=' + Date.now();
         });
     }
@@ -27,7 +31,6 @@ window.addEventListener('gamepadconnected', (e) => {
     };
 });
 
-webCamImage.onload = update();
 
 window.addEventListener('gamepaddisconnected', (e) => {
     console.log('Gamepad disconnected!');
