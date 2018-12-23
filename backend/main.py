@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 
 import distance
 import image_capture
@@ -33,27 +33,11 @@ def get_distances():
     return jsonify({'distances': distances})
 
 
-@app.route('/api/go/forward/<float:speed>', methods=['GET'])
-def go_forward(speed):
-    motors.go(speed)
-    return get_status()
-
-
-@app.route('/api/go/backward/<float:speed>', methods=['GET'])
-def go_backward(speed):
-    motors.go(-speed)
-    return get_status()
-
-
-@app.route('/api/turn/left/<float:speed>', methods=['GET'])
-def turn_left(speed):
-    motors.turn(speed)
-    return get_status()
-
-
-@app.route('/api/turn/right/<float:speed>', methods=['GET'])
-def turn_right(speed):
-    motors.turn(-speed)
+@app.route('/api/move', methods=['GET'])
+def move():
+    axes = request.get_json()
+    motors.set_speed(motion.LEFT, axes[motion.LEFT])
+    motors.set_speed(motion.RIGHT, axes[motion.RIGHT])
     return get_status()
 
 
