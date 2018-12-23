@@ -18,7 +18,8 @@ def index():
 
 @app.route('/cam.jpg', methods=['GET'])
 def get_web_cam_image():
-    return web_cam.image.tostring()
+    _, image = web_cam.image
+    return image.tostring()
 
 
 @app.route('/api', methods=['GET'])

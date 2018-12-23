@@ -1,5 +1,6 @@
 import time
 from threading import Event, Lock, Thread
+import prctl
 
 import cv2
 import numpy
@@ -9,7 +10,13 @@ from picamera.array import PiRGBArray
 CV2_JPEG_QUALITY_FLAG = [cv2.IMWRITE_JPEG_QUALITY, 80]
 
 
-class ImageStreamingThread(Thread):
+class Daemon(Thread):
+    def __init__(self):
+      super(Daemon, self).__init__()
+      self.daemon = True
+
+
+class ImageStreamingThread(Daemon):
     def __init__(self, camera):
         super(ImageStreamingThread, self).__init__()
 
@@ -23,6 +30,7 @@ class ImageStreamingThread(Thread):
         self.begin = 0
 
     def run(self):
+        prctl.set_name('image streaming thread')
         while not self.is_terminated:
             if self.event.wait(1):
                 try:
@@ -38,7 +46,7 @@ class ImageStreamingThread(Thread):
                     self.event.clear()
 
 
-class ImageCaptureThread(Thread):
+class ImageCaptureThread(Daemon):
     def __init__(self, camera, image_streaming_thread):
         super(ImageCaptureThread, self).__init__()
 
@@ -48,7 +56,8 @@ class ImageCaptureThread(Thread):
         self.start()
 
     def run(self):
-        print('running in image_capture thread')
+        prctl.set_name('image capture thread')
+
         self.camera.capture_sequence(self.trigger_image_streaming(), format='bgr', use_video_port=True)
         self.image_streaming_thread.is_terminated = True
         self.image_streaming_thread.join()
