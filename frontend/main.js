@@ -1,5 +1,5 @@
 const webCamImage = document.getElementById('web-cam');
-let gamepad;
+let connected = false;
 
 function updateWebCamImage() {
     webCamImage.src = 'cam.jpg?cache_buster=' + Date.now();
@@ -7,10 +7,11 @@ function updateWebCamImage() {
 }
 
 function moveRobot() {
-    if (gamepad) {
+    if (connected) {
+        const gamepad = navigator.getGamepads()[0];
         const left = Math.round(100 * gamepad.axes[1]) / 100;
         const right = Math.round(100 * gamepad.axes[3]) / 100;
-        console.log(left, right);
+        console.log(left, gamepad.axes[1], right, gamepad.axes[3]);
     }
 
     requestAnimationFrame(moveRobot);
@@ -19,13 +20,13 @@ function moveRobot() {
 window.addEventListener('gamepadconnected', (e) => {
     console.log('Gamepad connected!');
 
-    gamepad = navigator.getGamepads()[0];
+    connected = true;
 });
 
 
 window.addEventListener('gamepaddisconnected', (e) => {
     console.log('Gamepad disconnected!');
-    gamepad = undefined;
+    connected = false;
 });
 
 updateWebCamImage();
