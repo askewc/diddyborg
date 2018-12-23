@@ -2,7 +2,7 @@ const webCamImage = document.getElementById('web-cam');
 let axes = undefined;
 
 function update() {
-    webCamImage.src = 'cam.jpg?cache_buster=' + Date.now();
+    requestAnimationFrame(() => webCamImage.src = 'cam.jpg?cache_buster=' + Date.now());
 }
 
 webCamImage.onload = update;
