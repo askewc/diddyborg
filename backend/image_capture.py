@@ -70,11 +70,9 @@ class WebCam:
         self.pi_camera.resolution = resolution
         self.pi_camera.framerate = frame_rate
 
-        print('got pi cam')
-
-        # self.streaming_thread = ImageStreamingThread(self.pi_camera)
+        self.streaming_thread = ImageStreamingThread(self.pi_camera)
         time.sleep(2)
-        # self.capture_thread = ImageCaptureThread(self.pi_camera, self.streaming_thread)
+        self.capture_thread = ImageCaptureThread(self.pi_camera, self.streaming_thread)
 
     @property
     def image(self):
