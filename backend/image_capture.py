@@ -58,7 +58,7 @@ class ImageCaptureThread(Daemon):
     def run(self):
         prctl.set_name('image capture thread')
 
-        self.camera.capture_sequence(self.trigger_image_streaming(), format='bgr', use_video_port=False)
+        self.camera.capture_sequence(self.trigger_image_streaming(), format='bgr', use_video_port=True)
         self.image_streaming_thread.is_terminated = True
         self.image_streaming_thread.join()
 
