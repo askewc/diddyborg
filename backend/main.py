@@ -22,7 +22,7 @@ def get_web_cam_image():
     return image.tostring()
 
 
-@app.route('/api', methods=['GET'])
+@app.route('/api/status', methods=['GET'])
 def get_status():
     return jsonify({'status': motors.get_status()})
 

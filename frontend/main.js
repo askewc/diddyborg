@@ -41,7 +41,7 @@ function move() {
 
 function getStatus() {
     requestAnimationFrame(() => {
-        fetch('api/').then((response) => {
+        fetch('api/status').then((response) => {
             console.log(response);
             setTimeout(getStatus, 1000);
         });
