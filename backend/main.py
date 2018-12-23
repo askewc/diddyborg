@@ -38,7 +38,7 @@ def move():
     axes = request.get_json()
     motors.set_speed(motion.LEFT, axes[motion.LEFT])
     motors.set_speed(motion.RIGHT, axes[motion.RIGHT])
-    return get_status()
+    return jsonify({'axes': axes})
 
 
 @app.route('/api/stop', methods=['GET'])

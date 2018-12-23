@@ -72,7 +72,7 @@ class ImageCaptureThread(Daemon):
 
 
 class WebCam:
-    def __init__(self, resolution=(500, 500), frame_rate=30):
+    def __init__(self, resolution=(480, 270), frame_rate=30):
         self.resolution = resolution
 
         self.pi_camera = PiCamera()
