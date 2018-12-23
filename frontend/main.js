@@ -2,10 +2,10 @@ const webCamImage = document.getElementById('web-cam');
 let axes = undefined;
 
 function update() {
-    requestAnimationFrame(() => webCamImage.src = 'cam.jpg?cache_buster=' + Date.now());
+    webCamImage.src = 'cam.jpg?cache_buster=' + Date.now();
 }
 
-webCamImage.onload = update;
+requestAnimationFrame(update);
 
 window.addEventListener('gamepadconnected', (e) => {
     console.log('Gamepad connected!');
