@@ -42,7 +42,7 @@ function move() {
 function getStatus() {
     requestAnimationFrame(() => {
         fetch('api/status').then((response) => {
-            console.log(response);
+            const status = response.json();
             setTimeout(getStatus, 1000);
         });
     });
