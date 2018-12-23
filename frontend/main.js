@@ -41,8 +41,15 @@ function move() {
 
 function getStatus() {
     requestAnimationFrame(() => {
-        fetch('api/distances').then((response) => {
-            const distances = response.json();
+        fetch('api/distances', {
+            method: 'GET',
+            cache: 'no-cache',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }).then((response) => {
+            return response.json();
+        }).then((distances) => {
             const distancesElement = document.getElementById('distances');
             distancesElement.innerText = distances.toString();
             console.log(distances);
