@@ -14,7 +14,11 @@ function update() {
             body: JSON.stringify(axes),
         }).then(() => {
             webCamImage.onload = update;
-            requestAnimationFrame(() => webCamImage.src = 'cam.jpg?cache_buster=' + Date.now());
+            requestAnimationFrame(() => {
+                setTimeout(() => {
+                    webCamImage.src = 'cam.jpg?cache_buster=' + Date.now()
+                }, 1000 / 24);
+            });
         });
     }
 }
