@@ -53,7 +53,7 @@ function getStatus() {
             const distancesElement = document.getElementById('distances');
             distancesElement.innerText = distances.toString();
             console.log(distances);
-            setTimeout(getStatus, 1000);
+            setTimeout(getStatus, 2000);
         });
     });
 }
