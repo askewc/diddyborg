@@ -9,7 +9,7 @@ function updateWebCamImage() {
 let previousLeft = undefined;
 let previousRight = undefined;
 
-function moveRobot() {
+function move() {
     if (connected) {
         const gamepad = navigator.getGamepads()[0];
         const left = Math.round(10 * gamepad.axes[1]) / -10;
@@ -27,21 +27,29 @@ function moveRobot() {
                     left: left,
                     right: right,
                 }),
-            }).then(moveRobot);
+            }).then(move);
 
             previousLeft = left;
             previousRight = right;
         } else {
-            requestAnimationFrame(moveRobot);
+            requestAnimationFrame(move);
         }
     } else {
-        requestAnimationFrame(moveRobot);
+        requestAnimationFrame(move);
     }
+}
+
+function getStatus() {
+    requestAnimationFrame(() => {
+        fetch('api/').then((response) => {
+            console.log(response);
+            setTimeout(getStatus, 1000);
+        });
+    });
 }
 
 window.addEventListener('gamepadconnected', (e) => {
     console.log('Gamepad connected!');
-
     connected = true;
 });
 
@@ -52,4 +60,5 @@ window.addEventListener('gamepaddisconnected', (e) => {
 });
 
 updateWebCamImage();
-moveRobot();
+move();
+getStatus();
